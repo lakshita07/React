@@ -1,0 +1,39 @@
+import React,{useState,useEffect} from "react";
+import axios from 'axios';
+export default function DataFetchingExample()
+{
+    const [Posts,setPosts]=useState([]);
+
+    const apiurl='http://localhost:3001/posts';
+
+    useEffect(() => {
+        axios.get(apiurl)
+            .then((response) =>{
+                setPosts(response.data);
+            })
+            .catch((Error) =>
+            {
+                console.log('Error fetch data :',Error)
+            });
+    },[]);
+    return(
+        <div>
+            <table>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>role</th>
+                </tr>
+                {
+                    Posts.map((item) => [
+                        <tr key={item.id}>
+                            <td>{item.id}</td>
+                            <td>{item.Book}</td>
+                            <td>{item.author}</td>
+                        </tr>
+                    ])
+                }
+            </table>
+        </div>
+    )
+}
