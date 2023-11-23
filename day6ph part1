@@ -1,0 +1,37 @@
+import React from 'react';
+import { useProductContext } from './ProductContext';
+
+const ProductFilter = () => {
+  const { categories, priceFilter, updatePriceFilter } = useProductContext();
+
+  return (
+    <div>
+      <h2>Categories</h2>
+      <ul>
+        {categories.map(category => (
+          <li key={category.id}>{category.name}</li>
+        ))}
+      </ul>
+
+      <h2>Price Range</h2>
+      <label>
+        Min Price:
+        <input
+          type="number"
+          value={priceFilter?.min || ''}
+          onChange={e => updatePriceFilter(Number(e.target.value), priceFilter?.max || 0)}
+        />
+      </label>
+      <label>
+        Max Price:
+        <input
+          type="number"
+          value={priceFilter?.max || ''}
+          onChange={e => updatePriceFilter(priceFilter?.min || 0, Number(e.target.value))}
+        />
+      </label>
+    </div>
+  );
+};
+
+export default ProductFilter;
