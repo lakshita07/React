@@ -1,0 +1,27 @@
+import React, { useEffect, useState } from "react";
+import axios from 'axios';
+  
+ const PRODUCTS = () => {
+    const [book,setbooks] = useState([]);
+    useEffect (() =>{
+    const apiUrl='http://localhost:3001/products';
+    axios.get(apiUrl)
+       .then(response => {
+        setbooks(response.data);
+       })
+       .catch(error => {
+          console.error("Error :",error);
+       });
+},[]);
+return(
+    <div>
+        <h1>Product List</h1>
+        <ul>
+            {book.map(post => (
+                <li key={post.id}>{post.name},{post.description},{post.price}</li>
+            ))}
+        </ul>
+    </div>
+)
+}
+export default PRODUCTS;
